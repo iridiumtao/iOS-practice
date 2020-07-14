@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ogj-eh-Owt">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Slider Bar View Controller-->
+        <scene sceneID="NyL-KX-e46">
+            <objects>
+                <viewController id="ogj-eh-Owt" customClass="SliderBarViewController" customModule="iOS_practice_integrated" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OqH-Ug-Eem">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0MK-cU-Tzu">
+                                <rect key="frame" x="148" y="618" width="118" height="31"/>
+                                <connections>
+                                    <action selector="sliderBarValueChanged:" destination="ogj-eh-Owt" eventType="valueChanged" id="1SF-cl-naX"/>
+                                </connections>
+                            </slider>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wmC-04-9ok">
+                                <rect key="frame" x="132" y="323" width="150" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sliderbar pldyejtiaklxoamfleoq           " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg7-tq-D2b">
+                                <rect key="frame" x="43" y="438" width="329" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9Tl-zi-J50" firstAttribute="bottom" secondItem="0MK-cU-Tzu" secondAttribute="bottom" constant="214" id="eKU-yK-tgN"/>
+                            <constraint firstItem="0MK-cU-Tzu" firstAttribute="leading" secondItem="9Tl-zi-J50" secondAttribute="leading" constant="150" id="txu-Mz-zU9"/>
+                            <constraint firstItem="9Tl-zi-J50" firstAttribute="trailing" secondItem="0MK-cU-Tzu" secondAttribute="trailing" constant="150" id="yFj-GF-VLU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9Tl-zi-J50"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ujm-qL-bNx"/>
+                    <connections>
+                        <outlet property="label" destination="xg7-tq-D2b" id="6Jz-dr-2l8"/>
+                        <outlet property="progressView" destination="wmC-04-9ok" id="xGO-pc-PB6"/>
+                        <outlet property="sliderBar" destination="0MK-cU-Tzu" id="2RU-lb-JLW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KC3-m4-Bdf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2155" y="138"/>
+        </scene>
+    </scenes>
+</document>
