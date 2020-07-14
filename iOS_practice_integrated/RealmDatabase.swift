@@ -20,8 +20,6 @@ struct RealmDatabase {
         user.age = age
         user.address = address
         
-        
-        
         try! realm.write {
             realm.add(user)
         }
@@ -97,7 +95,14 @@ struct RealmDatabase {
 
     func searchData(_ searchText: String) -> [(name: String, age: Int, address: String)] {
         var searchResults: [(name: String, age: Int, address: String)] = []
-        let results = realm.objects(RLM_User.self).filter("name CONTAINS '\(searchText)'")
+        let results: Results<RLM_User>
+        if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: searchText)) {
+            results = realm.objects(RLM_User.self).filter(String(format: "name CONTAINS[c] '%@' || age == %d || address CONTAINS[c] '%@'",searchText, Int(searchText)!, searchText))
+            print(results)
+        } else {
+            results = realm.objects(RLM_User.self).filter(String(format: "name CONTAINS[c] '%@' || address CONTAINS[c] '%@'", searchText, searchText))
+            print(results)
+        }
         for result in results {
             searchResults.append((result.name, result.age, result.address))
         }

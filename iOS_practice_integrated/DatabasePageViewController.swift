@@ -100,8 +100,10 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
     
     // 搜尋列 文字改變
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredUserData = realmDatabase.searchData(searchText)
-        isSearchMode = true
+        if searchBar.searchTextField.text != "" {
+            filteredUserData = realmDatabase.searchData(searchText)
+        }
+        
         //let timeStart = CFAbsoluteTimeGetCurrent()
         // 更新表格
         tableView.reloadData()
@@ -117,7 +119,7 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
-    @IBAction func a(_ sender: Any) {
+    @IBAction func textFieldsTextChanged(_ sender: Any) {
         print("s")
         if (nameTextField.text != "" && ageTextField.text != "" && addressTextField.text != "") {
             updateButton.isEnabled = true
@@ -130,16 +132,30 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
 extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realmDatabase.getUserCount()
+        if searchBar.searchTextField.text == "" {
+            return realmDatabase.getUserCount()
+        } else {
+            return filteredUserData.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let realmDatabase = RealmDatabase()
-        let userData = realmDatabase.getData(indexPath: indexPath.row, sort: sort)
+        let text: String
+        if searchBar.searchTextField.text == "" {
+
+            let userData = realmDatabase.getData(indexPath: indexPath.row, sort: sort)
         
-        let text = userData
+            text = userData
+        
+        } else {
+            text = """
+            \(filteredUserData[indexPath.row].name)
+            \(filteredUserData[indexPath.row].age)
+            \(filteredUserData[indexPath.row].address)
+            """
+        }
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 3
         
