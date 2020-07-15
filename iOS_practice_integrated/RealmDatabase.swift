@@ -54,7 +54,6 @@ struct RealmDatabase {
     // MARK: 舊的，之後要棄用
     // 全部取得資料
     func getData(indexPath userIndexInTableView: Int, sort: String) -> String{
-        
         let users = realm.objects(RLM_User.self).sorted(byKeyPath: sort, ascending: true)
         
         let returnText = """
@@ -83,7 +82,6 @@ struct RealmDatabase {
         } else {
             
             let data: (UUID: String, name: String, age: Int, address: String) = (userData![userIndexInTableView].UUID, userData![userIndexInTableView].name, userData![userIndexInTableView].age, userData![userIndexInTableView].address)
-            print(data)
             return data
         }
     }
@@ -94,7 +92,6 @@ struct RealmDatabase {
         for user in users {
             userData!.append(UserData(UUID: user.uuid, name: user.name, age: user.age, address: user.address))
         }
-        print(userData!)
     }
     
     mutating func clearLocalUserData() {
@@ -162,16 +159,9 @@ struct RealmDatabase {
         
         let results: Results<RLM_User>
         if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: searchText)) {
-            
             results =  realm.objects(RLM_User.self).filter(String(format: "name CONTAINS[c] '%@' || age == %d || address CONTAINS[c] '%@'",searchText, Int(searchText)!, searchText)).sorted(byKeyPath: sort, ascending: true)
-        
-            print(results)
-            
         } else {
-            
             results = realm.objects(RLM_User.self).filter(String(format: "name CONTAINS[c] '%@' || address CONTAINS[c] '%@'", searchText, searchText)).sorted(byKeyPath: sort, ascending: true)
-            print(results)
-            
         }
         for result in results {
             searchResults.append((result.uuid, result.name, result.age, result.address))

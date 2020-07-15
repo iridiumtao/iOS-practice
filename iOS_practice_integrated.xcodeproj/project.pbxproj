@@ -18,6 +18,7 @@
 		3C0E3EDD24ADCFD800B2C8C3 /* SliderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0E3EDC24ADCFD800B2C8C3 /* SliderBarViewController.swift */; };
 		3CD1D23024B4619100F504F3 /* DatabasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1D22F24B4619100F504F3 /* DatabasePageViewController.swift */; };
 		3CD1D23224B476BF00F504F3 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1D23124B476BF00F504F3 /* RealmDatabase.swift */; };
+		3CD7C04624BF0BB500B0F9BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7C04524BF0BB500B0F9BF /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		3C0E3EDC24ADCFD800B2C8C3 /* SliderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBarViewController.swift; sourceTree = "<group>"; };
 		3CD1D22F24B4619100F504F3 /* DatabasePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePageViewController.swift; sourceTree = "<group>"; };
 		3CD1D23124B476BF00F504F3 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		3CD7C04524BF0BB500B0F9BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E52878E1612B113E4C83807 /* Pods_iOS_practice_integrated.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_practice_integrated.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD5ECF9D72F108E01D54032 /* Pods-iOS_practice_integrated.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_integrated.debug.xcconfig"; path = "Target Support Files/Pods-iOS_practice_integrated/Pods-iOS_practice_integrated.debug.xcconfig"; sourceTree = "<group>"; };
 		92F4F03678BDCC9E45F1407F /* Pods-iOS_practice_integrated.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_integrated.release.xcconfig"; path = "Target Support Files/Pods-iOS_practice_integrated/Pods-iOS_practice_integrated.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				3C0E3ECC24ADB7CC00B2C8C3 /* LaunchScreen.storyboard */,
 				3C0E3ECF24ADB7CC00B2C8C3 /* Info.plist */,
 				3CD1D23124B476BF00F504F3 /* RealmDatabase.swift */,
+				3CD7C04524BF0BB500B0F9BF /* LoginViewController.swift */,
 			);
 			path = iOS_practice_integrated;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD7C04624BF0BB500B0F9BF /* LoginViewController.swift in Sources */,
 				3CD1D23024B4619100F504F3 /* DatabasePageViewController.swift in Sources */,
 				3C0E3EC624ADB7CA00B2C8C3 /* ViewController.swift in Sources */,
 				3CD1D23224B476BF00F504F3 /* RealmDatabase.swift in Sources */,

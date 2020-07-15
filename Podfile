@@ -7,4 +7,9 @@ target 'iOS_practice_integrated' do
   pod 'RealmSwift'
   # Pods for iOS_practice_integrated
 
+  pod 'MaterialComponents/TextControls+FilledTextAreas'
+  pod 'MaterialComponents/TextControls+FilledTextFields'
+  pod 'MaterialComponents/TextControls+OutlinedTextAreas'
+  pod 'MaterialComponents/TextControls+OutlinedTextFields'
+
 end

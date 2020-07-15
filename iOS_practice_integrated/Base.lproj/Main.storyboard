@@ -51,6 +51,7 @@
                         <segue destination="541-Eq-BGY" kind="show" identifier="SliderBarSegue" id="ODF-ji-XCO"/>
                         <segue destination="TSB-fD-Izm" kind="show" identifier="SecondPageSegue" id="ZYL-5R-SmW"/>
                         <segue destination="EOH-xj-pJy" kind="show" identifier="DatabasePageSegue" id="MnX-Dx-a06"/>
+                        <segue destination="9Jb-Cq-YVx" kind="show" identifier="LoginPageSegue" id="0aU-Ga-2Y5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -265,6 +266,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lw8-B0-ODd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2692.753623188406" y="551.11607142857144"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="hvj-S0-O1V">
+            <objects>
+                <viewController id="9Jb-Cq-YVx" customClass="LoginViewController" customModule="iOS_practice_integrated" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="brl-Iq-fYy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FOj-lf-5gw" customClass="MDCOutlinedTextField">
+                                <rect key="frame" x="59" y="300" width="260" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="b6B-Gh-orE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pfi-OS-ZHi"/>
+                    <connections>
+                        <outlet property="textFirld" destination="FOj-lf-5gw" id="AsV-QT-uo1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54b-E9-Ani" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3424.6376811594205" y="551.78571428571422"/>
         </scene>
     </scenes>
 </document>

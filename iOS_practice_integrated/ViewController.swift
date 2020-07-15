@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
-    var practicePages = ["Slider Bar", "Second Page", "Realm database"]
+    var practicePages = ["Slider Bar", "Second Page", "Realm database", "Login Page"]
     var filteredPracticePages: [String] = []
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -74,6 +74,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             segueName = "SecondPageSegue"
         case 2:
             segueName = "DatabasePageSegue"
+        case 3:
+            segueName = "LoginPageSegue"
         default:
             segueName = "SliderBarSegue"
         }

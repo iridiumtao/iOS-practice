@@ -200,7 +200,6 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
             self.realmDatabase.deleteData(indexPath: indexPath.row, sort: self.sort)
             self.reloadDataForTableViewAndLocalData()
         }
-        // MARK: -
         // 編輯
         let editItem = UIContextualAction(style: .normal, title: "Edit") {  (contextualAction, view, boolValue) in
             self.updateButton.setTitle("Save", for: .normal)
@@ -253,7 +252,12 @@ extension DatabasePageViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // 叫realm更改排序方式
         sort = userDataType[row]
-        reloadDataForTableViewAndLocalData()
+        if self.searchBar.searchTextField.text == "" {
+            reloadDataForTableViewAndLocalData()
+        } else {
+            filteredUserData = realmDatabase.searchData(searchText, sort: sort)
+            tableView.reloadData()
+        }
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, animations: {
             self.pickerView.frame = self.pickerView.frame.offsetBy(dx: 0, dy: 200)
         })
