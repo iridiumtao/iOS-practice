@@ -24,9 +24,13 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
     var isUpdateButtonUpdateMode = false
     var isSearchMode = false
     var editingIndex: Int? = nil
-    var filteredUserData: [(name: String, age: Int, address: String)] = []
+    var editingDataUUID: String? = nil
+    var searchText: String = ""
+    var filteredUserData: [(UUID:String, name: String, age: Int, address: String)] = []
     
-    let realmDatabase = RealmDatabase()
+    var realmDatabase = RealmDatabase()
+    
+    var timeStart:CFAbsoluteTime = 0.0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +54,13 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
         let age:Int = Int(ageTextField.text ?? "0") ?? 0
         let address = (addressTextField.text != "") ? addressTextField.text! : "blank"
         
-        
         if !isUpdateButtonUpdateMode {
             realmDatabase.writeData(name, age, address)
         } else {
-            if editingIndex != nil {
-                realmDatabase.updataData(indexPath: editingIndex!, sort: sort, name, age, address)
+            if editingDataUUID != nil {
+                //realmDatabase.updateData(indexPath: editingIndex!, sort: sort, name, age, address)
+                realmDatabase.updateData(UUID: editingDataUUID!, name, age, address)
+                filteredUserData = realmDatabase.searchData(searchText, sort: sort)
                 updateButton.setTitle("Add", for: .normal)
                 isUpdateButtonUpdateMode = false
             } else {
@@ -66,9 +71,9 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
         }
         updateButton.isEnabled = false
         
-        tableView.reloadData()
+        reloadDataForTableViewAndLocalData()
         
-        // 按下按鈕後 textField 的閃爍那條可以被復原(鍵盤得以收回)
+        // 按下按鈕後 textField 的閃爍那條可以被復原(收起鍵盤)
         nameTextField.resignFirstResponder()
         ageTextField.resignFirstResponder()
         addressTextField.resignFirstResponder()
@@ -87,6 +92,7 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
         //pickerView.isHidden = false
         changeSortButton.isEnabled = false
         
+        
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, animations: {
             self.pickerView.frame = self.pickerView.frame.offsetBy(dx: 0, dy: -200)
         })
@@ -101,7 +107,8 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
     // 搜尋列 文字改變
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.searchTextField.text != "" {
-            filteredUserData = realmDatabase.searchData(searchText)
+            filteredUserData = realmDatabase.searchData(searchText, sort: sort)
+            self.searchText = searchText
         }
         
         //let timeStart = CFAbsoluteTimeGetCurrent()
@@ -117,15 +124,23 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
     // 捲動 tableView 時收起鍵盤
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
+        nameTextField.resignFirstResponder()
+        ageTextField.resignFirstResponder()
+        addressTextField.resignFirstResponder()
     }
     
     @IBAction func textFieldsTextChanged(_ sender: Any) {
-        print("s")
         if (nameTextField.text != "" && ageTextField.text != "" && addressTextField.text != "") {
             updateButton.isEnabled = true
         } else {
             updateButton.isEnabled = false
         }
+    }
+    
+    func reloadDataForTableViewAndLocalData() {
+        print("Called: reloadDataForTableViewAndLocalData()")
+        realmDatabase.clearLocalUserData()
+        tableView.reloadData()
     }
 }
 
@@ -142,12 +157,25 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
+        //　計算時間用
+//        if indexPath.row == 0 {
+//            timeStart = CFAbsoluteTimeGetCurrent()
+//        }
+//        if indexPath.row == realmDatabase.getUserCount() - 1 {
+//            print("TIME: \(CFAbsoluteTimeGetCurrent() - timeStart)")
+//        }
         let text: String
         if searchBar.searchTextField.text == "" {
 
-            let userData = realmDatabase.getData(indexPath: indexPath.row, sort: sort)
-        
-            text = userData
+            //let userData = realmDatabase.getData(indexPath: indexPath.row, sort: sort)
+            // text = userData
+            let userData = realmDatabase.loadData(indexPath: indexPath.row, sort: sort)
+            
+            text = """
+            \(userData.name)
+            \(userData.age)
+            \(userData.address)
+            """
         
         } else {
             text = """
@@ -170,19 +198,41 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
         // 刪除
         let deleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
             self.realmDatabase.deleteData(indexPath: indexPath.row, sort: self.sort)
-            tableView.reloadData()
+            self.reloadDataForTableViewAndLocalData()
         }
+        // MARK: -
         // 編輯
         let editItem = UIContextualAction(style: .normal, title: "Edit") {  (contextualAction, view, boolValue) in
             self.updateButton.setTitle("Save", for: .normal)
             
             self.isUpdateButtonUpdateMode = true
-            self.editingIndex = indexPath.row
-            print("indexPath.row \(indexPath.row)")
-            self.nameTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "name")
-            self.ageTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "age")
-            self.addressTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "address")
-            self.changeSortButton.isEnabled = false
+            
+            let dataOfTheRow: (UUID: String, name: String, age: Int, address: String)
+            if self.searchBar.searchTextField.text == "" {
+                
+                dataOfTheRow = self.realmDatabase.loadData(indexPath: indexPath.row, sort: self.sort)
+            } else {
+                
+                dataOfTheRow =
+                    self.filteredUserData[indexPath.row]
+            }
+            
+
+            
+            self.editingDataUUID = dataOfTheRow.UUID
+            self.nameTextField.text = dataOfTheRow.name
+            self.ageTextField.text = "\(dataOfTheRow.age)"
+            self.addressTextField.text = dataOfTheRow.address
+            
+//            self.editingIndex = indexPath.row
+//            print("indexPath.row \(indexPath.row)")
+//            self.nameTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "name")
+//            self.ageTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "age")
+//            self.addressTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "address")
+            
+            
+            
+            //self.changeSortButton.isEnabled = false
             self.updateButton.isEnabled = true
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem, editItem])
@@ -203,7 +253,7 @@ extension DatabasePageViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // 叫realm更改排序方式
         sort = userDataType[row]
-        tableView.reloadData()
+        reloadDataForTableViewAndLocalData()
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, animations: {
             self.pickerView.frame = self.pickerView.frame.offsetBy(dx: 0, dy: 200)
         })
