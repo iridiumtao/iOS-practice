@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var uploadImageView: UIImageView!
     @IBOutlet weak var uploadImageButton: UIButton!
+    
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
@@ -30,6 +31,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
     
     let fullScreenSize = UIScreen.main.bounds.size
+    var imageData = NSData()
 
 
     override func viewDidLoad() {
@@ -61,35 +63,75 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func confirmButtonClicked(_ sender: Any) {
-        var errorMessenge = ""
+        var errorMessage = ""
         if !regexMatch(accountTextField.text!, "[A-Za-z0-9]{4,10}") {
-            errorMessenge += "帳號只能輸入字母、數字，最少4個，最多10個字\n"
+            errorMessage += "帳號只能輸入字母、數字，最少4個，最多10個字\n"
         }
         if !regexMatch(passwordTextField.text!, "[A-Z]\\w{4,9}") {
-            errorMessenge += "密碼首字母為大寫，最少5個字，最多10個字\n"
+            errorMessage += "密碼首字母為大寫，最少5個字，最多10個字\n"
         }
         if nameTextField.text == "" {
-            errorMessenge += "名字不能為空白\n"
+            errorMessage += "名字不能為空白\n"
         }
         if !regexMatch(emailTextField.text!, "\\w+@\\w+") {
-            errorMessenge += "Email無效\n"
+            errorMessage += "Email無效\n"
         }
         if !regexMatch(phoneNumberTextField.text!, "09[0-9]{8}") {
-            errorMessenge += "手機號碼無效\n"
+            errorMessage += "手機號碼無效\n"
         }
         if !checkID(nationalIDTextField.text!) {
-            errorMessenge += "身分證字號無效\n"
+            errorMessage += "身分證字號無效\n"
         }
         
-        if errorMessenge == "" {
+        if errorMessage == "" {
             
             print("成功確認")
         } else {
-            print(errorMessenge)
+            makeAlert(title: "輸入資料無效", message: errorMessage)
+            
+            print(errorMessage)
         }
         
     }
+
     
+}
+// MARK: - Image 相關
+extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @IBAction func uploadImageButton(_ sender: Any) {
+        let picker: UIImagePickerController = UIImagePickerController()
+
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            picker.allowsEditing = true // 可對照片作編輯
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    /// 取得選取後的照片
+    ///
+    /// - Parameters:
+    ///   - picker: picker
+    ///   - info: info
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil) // 關掉
+        let image = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.originalImage.rawValue)] as? UIImage // 從Dictionary取出原始圖檔
+        self.uploadImageView.image = image
+        imageData = image!.pngData()! as NSData
+        
+        
+    }
+    
+    // 圖片picker控制器任務結束回呼
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+// MARK: - functions
+extension LoginViewController {
     func regexMatch(_ validateString:String, _ regex:String) -> Bool {
         if validateString == "" {
             return false
@@ -144,13 +186,13 @@ class LoginViewController: UIViewController {
         if validateFormat(str: lowercaseSource) {
             
             /// 判斷是不是真的，規則在這邊(http://web.htps.tn.edu.tw/cen/other/files/pp/)
-            var cityAlphabets: [String: Int] =
+            let cityAlphabets: [String: Int] =
                 ["a":10,"b":11,"c":12,"d":13,"e":14,"f":15,"g":16,"h":17,"i":34,"j":18,
                  "k":19,"l":20,"m":21,"n":22,"o":35,"p":23,"q":24,"r":25,"s":26,"t":27,
                  "u":28,"v":29,"w":30,"x":31,"y":32,"z":33]
 
             /// 把 [Character] 轉換成 [Int] 型態
-            var ints = lowercaseSource.compactMap{ Int(String($0)) }
+            let ints = lowercaseSource.compactMap{ Int(String($0)) }
 
             /// 拿取身分證第一位英文字母所對應當前城市的
             guard let key = lowercaseSource.first,
@@ -172,5 +214,11 @@ class LoginViewController: UIViewController {
         return false
     }
     
+    func makeAlert(title: String, message: String) {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        controller.addAction(okAction)
+        present(controller, animated: true, completion: nil)
+    }
 
 }

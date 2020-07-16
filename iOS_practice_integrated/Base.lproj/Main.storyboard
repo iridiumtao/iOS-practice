@@ -299,6 +299,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEO-2b-NI9">
                                 <rect key="frame" x="176" y="264" width="62" height="30"/>
                                 <state key="normal" title="新增圖片"/>
+                                <connections>
+                                    <action selector="uploadImageButton:" destination="9Jb-Cq-YVx" eventType="touchUpInside" id="l4f-Ry-DCk"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="帳號" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XzB-y6-ttS">
                                 <rect key="frame" x="72" y="314" width="270" height="34"/>
