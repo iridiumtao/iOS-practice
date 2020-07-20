@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
         nationalIDTextField.placeholder = "身分證字號"
     }
     
-
+    /// 按下「clearAll」按鈕後清除TextField內的文字(或填入測試文字)
     @IBAction func clearAllButtonClicked(_ sender: Any) {
         accountTextField.text = "TestAccount01"
         passwordTextField.text = "A12345"
@@ -73,6 +73,7 @@ class LoginViewController: UIViewController {
     @IBAction func confirmButtonClicked(_ sender: Any) {
         if isUserInputsValid() {
             writeNewUserData()
+            performSegue(withIdentifier: "UserAccountTableFromLoginPageSegue", sender: nil)
         }
     }
     
@@ -149,7 +150,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
         let image = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.originalImage.rawValue)] as? UIImage // 從Dictionary取出原始圖檔
         self.uploadImageView.image = image
         imageData = image!.pngData()! as NSData
-        print("\(imageData.length) + Bytes")
+        print("\(imageData.length) Bytes")
         
         
     }
@@ -163,6 +164,13 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
 
 // MARK: - functions
 extension LoginViewController {
+    /// 利用此function達到類似Java String.match()的功能
+    /// 若輸入文字為空值會直接return false
+    ///
+    /// - Parameters:
+    ///   - validateString: 要驗證的文字
+    ///   - regex: 驗證規則
+    /// - Returns: 回傳是否符合的 Bool
     func regexMatch(_ validateString:String, _ regex:String) -> Bool {
         if validateString == "" {
             return false
@@ -174,9 +182,9 @@ extension LoginViewController {
     /// 正則匹配
     ///
     /// - Parameters:
-    ///   - regex: 匹配規則
-    ///   - validateString: 匹配對test象
-    /// - Returns: 返回結果
+    ///   - validateString: 要驗證的文字
+    ///   - regex: 驗證規則
+    /// - Returns: 返回符合的 String
     func regularExpression(validateString:String, regex:String) -> String{
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: regex, options: [])

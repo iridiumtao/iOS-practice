@@ -469,11 +469,87 @@
                         <outlet property="phoneNumberTextField" destination="l8C-5C-1u0" id="CEA-W5-r9O"/>
                         <outlet property="uploadImageButton" destination="KEO-2b-NI9" id="0sh-WR-u36"/>
                         <outlet property="uploadImageView" destination="OWn-BN-1An" id="idf-Qq-6Bm"/>
+                        <segue destination="0mU-jB-2dT" kind="show" identifier="UserAccountTableFromLoginPageSegue" id="CGt-RV-LuI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="54b-E9-Ani" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3424.6376811594205" y="551.11607142857144"/>
+        </scene>
+        <!--User Account Table View Controller-->
+        <scene sceneID="FX6-SJ-aL5">
+            <objects>
+                <viewController id="0mU-jB-2dT" customClass="UserAccountTableViewController" customModule="iOS_practice_integrated" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RsB-Kj-pNz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="127-dl-c7I">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="4b5-BD-gMP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="KVP-o4-OJE">
+                                        <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KVP-o4-OJE" id="M2j-ju-f4I">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qGi-1I-PgH" firstAttribute="trailing" secondItem="127-dl-c7I" secondAttribute="trailing" id="1p4-Vo-Lhe"/>
+                            <constraint firstItem="qGi-1I-PgH" firstAttribute="bottom" secondItem="127-dl-c7I" secondAttribute="bottom" id="B4z-JC-lxF"/>
+                            <constraint firstItem="127-dl-c7I" firstAttribute="top" secondItem="qGi-1I-PgH" secondAttribute="top" id="pzD-eB-6FC"/>
+                            <constraint firstItem="127-dl-c7I" firstAttribute="leading" secondItem="qGi-1I-PgH" secondAttribute="leading" id="wC4-ST-vNK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qGi-1I-PgH"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ami-Ur-ccH"/>
+                    <connections>
+                        <outlet property="searchBar" destination="4b5-BD-gMP" id="2nM-dv-IRh"/>
+                        <outlet property="tableView" destination="127-dl-c7I" id="fBs-hv-3S9"/>
+                        <segue destination="sDM-T7-Sqa" kind="showDetail" identifier="ShowUserDetailSegue" id="GaT-BW-OvB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d00-I2-Jbq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3424.6376811594205" y="1236.8303571428571"/>
+        </scene>
+        <!--Show User Detail View Controller-->
+        <scene sceneID="xVP-cZ-0qk">
+            <objects>
+                <viewController id="sDM-T7-Sqa" customClass="ShowUserDetailViewController" customModule="iOS_practice_integrated" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VFC-sk-Hvn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKq-ui-UQ5">
+                                <rect key="frame" x="186" y="411" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="meB-IE-0pP"/>
+                    </view>
+                    <connections>
+                        <outlet property="testLabel" destination="WKq-ui-UQ5" id="k2O-zQ-w2P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EyL-Yc-lbb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4291" y="1237"/>
         </scene>
     </scenes>
     <resources>

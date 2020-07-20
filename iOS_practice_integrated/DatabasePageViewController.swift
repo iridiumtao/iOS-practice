@@ -144,6 +144,7 @@ class DatabasePageViewController: UIViewController, UISearchBarDelegate {
     }
 }
 
+// MARK: -  tableView
 extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -157,13 +158,6 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        //　計算時間用
-//        if indexPath.row == 0 {
-//            timeStart = CFAbsoluteTimeGetCurrent()
-//        }
-//        if indexPath.row == realmDatabase.getUserCount() - 1 {
-//            print("TIME: \(CFAbsoluteTimeGetCurrent() - timeStart)")
-//        }
         let text: String
         if searchBar.searchTextField.text == "" {
 
@@ -216,20 +210,10 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
                     self.filteredUserData[indexPath.row]
             }
             
-
-            
             self.editingDataUUID = dataOfTheRow.UUID
             self.nameTextField.text = dataOfTheRow.name
             self.ageTextField.text = "\(dataOfTheRow.age)"
             self.addressTextField.text = dataOfTheRow.address
-            
-//            self.editingIndex = indexPath.row
-//            print("indexPath.row \(indexPath.row)")
-//            self.nameTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "name")
-//            self.ageTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "age")
-//            self.addressTextField.text = self.realmDatabase.getData(indexPath: indexPath.row, sort: self.sort, dataType: "address")
-            
-            
             
             //self.changeSortButton.isEnabled = false
             self.updateButton.isEnabled = true
@@ -239,6 +223,7 @@ extension DatabasePageViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+// MARK: - PickerView
 extension DatabasePageViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
