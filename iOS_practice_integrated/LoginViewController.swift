@@ -53,27 +53,41 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func clearAllButtonClicked(_ sender: Any) {
-        accountTextField.text = ""
-        passwordTextField.text = ""
-        nameTextField.text = ""
-        birthdayTextField.text = ""
-        emailTextField.text = ""
-        phoneNumberTextField.text = ""
-        nationalIDTextField.text = ""
+        accountTextField.text = "TestAccount01"
+        passwordTextField.text = "A12345"
+        nameTextField.text = "Test"
+        birthdayTextField.text = "2001/01/01"
+        emailTextField.text = "example@example.com"
+        phoneNumberTextField.text = "0987654321"
+        nationalIDTextField.text = "A123456789"
+        
+//        accountTextField.text = ""
+//        passwordTextField.text = ""
+//        nameTextField.text = ""
+//        birthdayTextField.text = ""
+//        emailTextField.text = ""
+//        phoneNumberTextField.text = ""
+//        nationalIDTextField.text = ""
     }
     
     @IBAction func confirmButtonClicked(_ sender: Any) {
-        var errorMessage = ""
-        if !regexMatch(accountTextField.text!, "[A-Za-z0-9]{4,10}") {
-            errorMessage += "帳號只能輸入字母、數字，最少4個，最多10個字\n"
+        if isUserInputsValid() {
+            writeNewUserData()
         }
-        if !regexMatch(passwordTextField.text!, "[A-Z]\\w{4,9}") {
-            errorMessage += "密碼首字母為大寫，最少5個字，最多10個字\n"
+    }
+    
+    func isUserInputsValid() -> Bool {
+        var errorMessage = ""
+        if !regexMatch(accountTextField.text!, "[A-Za-z0-9]{4,36}") {
+            errorMessage += "帳號只能輸入字母、數字，最少4個，最多24個字\n"
+        }
+        if !regexMatch(passwordTextField.text!, "[A-Z]\\w{4,35}") {
+            errorMessage += "密碼首字母為大寫，最少5個字，最多36個字\n"
         }
         if nameTextField.text == "" {
             errorMessage += "名字不能為空白\n"
         }
-        if !regexMatch(emailTextField.text!, "\\w+@\\w+") {
+        if !regexMatch(emailTextField.text!, ".+@.+") {
             errorMessage += "Email無效\n"
         }
         if !regexMatch(phoneNumberTextField.text!, "09[0-9]{8}") {
@@ -83,15 +97,31 @@ class LoginViewController: UIViewController {
             errorMessage += "身分證字號無效\n"
         }
         
+        if imageData.length > 16_777_216 {
+            errorMessage += "圖片大小超過16MB"
+        }
+        
         if errorMessage == "" {
-            
-            print("成功確認")
+            print("Login: 輸入資料有效")
         } else {
             makeAlert(title: "輸入資料無效", message: errorMessage)
             
             print(errorMessage)
         }
         
+        return (errorMessage == "")
+    }
+    
+    func writeNewUserData() {
+        let accountDatabase = AccountDatabase()
+        accountDatabase.writeData(account: accountTextField.text!,
+                                  password: passwordTextField.text!,
+                                  name: nameTextField.text!,
+                                  birthday: birthdayTextField.text!,
+                                  email: emailTextField.text!,
+                                  phoneNumber: phoneNumberTextField.text!,
+                                  nationalID: nationalIDTextField.text!,
+                                  pictureData: imageData)
     }
 
     
@@ -103,7 +133,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             picker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            picker.allowsEditing = true // 可對照片作編輯
+            picker.allowsEditing = false // 可對照片作編輯
             picker.delegate = self
             self.present(picker, animated: true, completion: nil)
         }
@@ -119,6 +149,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
         let image = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.originalImage.rawValue)] as? UIImage // 從Dictionary取出原始圖檔
         self.uploadImageView.image = image
         imageData = image!.pngData()! as NSData
+        print("\(imageData.length) + Bytes")
         
         
     }
