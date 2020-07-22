@@ -532,27 +532,93 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKq-ui-UQ5">
-                                <rect key="frame" x="186" y="411" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKq-ui-UQ5">
+                                <rect key="frame" x="186" y="143" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CRM-aZ-vYX">
+                                <rect key="frame" x="127" y="173.5" width="160" height="157"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="7Gi-Ww-KWC"/>
+                                    <constraint firstAttribute="height" constant="160" id="LTh-69-zJs"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="nrO-9q-3Qz">
+                                <rect key="frame" x="172" y="357" width="185" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="681-Mp-0NZ"/>
+                                    <constraint firstAttribute="width" constant="185" id="KZG-Mo-jFo"/>
+                                </constraints>
+                                <string key="text">hara891108
+12345678
+Yuuki Hara
+2000/11/08
+hara891108@gmail.com
+0987654321
+A123456789</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9p-gm-jMR">
+                                <rect key="frame" x="207" y="421" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prb-vW-zbU">
+                                <rect key="frame" x="57" y="357" width="115" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="1ON-Mw-nso"/>
+                                    <constraint firstAttribute="width" constant="115" id="I98-uI-1UE"/>
+                                </constraints>
+                                <string key="text">Account: 
+Password: 
+Name: 
+Birthday: 
+Email: 
+Phone Number: 
+National ID: </string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Prb-vW-zbU" firstAttribute="top" secondItem="CRM-aZ-vYX" secondAttribute="bottom" constant="25" id="03i-PV-yn1"/>
+                            <constraint firstItem="CRM-aZ-vYX" firstAttribute="centerX" secondItem="VFC-sk-Hvn" secondAttribute="centerX" id="Au4-vz-Rgx"/>
+                            <constraint firstItem="nrO-9q-3Qz" firstAttribute="leading" secondItem="Prb-vW-zbU" secondAttribute="trailing" id="CM3-ZQ-lW1"/>
+                            <constraint firstItem="CRM-aZ-vYX" firstAttribute="top" secondItem="meB-IE-0pP" secondAttribute="top" constant="172" id="FYx-FC-FTv"/>
+                            <constraint firstItem="CRM-aZ-vYX" firstAttribute="top" secondItem="WKq-ui-UQ5" secondAttribute="bottom" constant="8" id="Kr9-wc-24p"/>
+                            <constraint firstItem="c9p-gm-jMR" firstAttribute="trailing" secondItem="Prb-vW-zbU" secondAttribute="trailing" constant="35" id="LYx-AL-G1R"/>
+                            <constraint firstItem="WKq-ui-UQ5" firstAttribute="centerX" secondItem="VFC-sk-Hvn" secondAttribute="centerX" id="Nk6-B0-Beu"/>
+                            <constraint firstItem="nrO-9q-3Qz" firstAttribute="leading" secondItem="Prb-vW-zbU" secondAttribute="trailing" id="Y3c-xc-SLE"/>
+                            <constraint firstItem="c9p-gm-jMR" firstAttribute="centerX" secondItem="VFC-sk-Hvn" secondAttribute="centerX" id="YXY-9l-hUA"/>
+                            <constraint firstItem="nrO-9q-3Qz" firstAttribute="top" secondItem="CRM-aZ-vYX" secondAttribute="bottom" constant="25" id="rWO-m9-2rV"/>
+                            <constraint firstItem="c9p-gm-jMR" firstAttribute="centerY" secondItem="VFC-sk-Hvn" secondAttribute="centerY" id="sMn-8P-ulO"/>
+                            <constraint firstItem="c9p-gm-jMR" firstAttribute="leading" secondItem="nrO-9q-3Qz" secondAttribute="leading" constant="35" id="x9v-eQ-10u"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="meB-IE-0pP"/>
                     </view>
                     <connections>
+                        <outlet property="dataContentTextView" destination="nrO-9q-3Qz" id="cqW-p3-0SE"/>
+                        <outlet property="dataTypeTextView" destination="Prb-vW-zbU" id="62Q-3r-KRt"/>
                         <outlet property="testLabel" destination="WKq-ui-UQ5" id="k2O-zQ-w2P"/>
+                        <outlet property="userIconImageView" destination="CRM-aZ-vYX" id="tEd-3f-J9p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EyL-Yc-lbb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4291" y="1237"/>
+            <point key="canvasLocation" x="4288.4057971014499" y="1236.8303571428571"/>
         </scene>
     </scenes>
     <resources>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
     </resources>
 </document>

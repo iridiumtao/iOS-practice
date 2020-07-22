@@ -9,27 +9,58 @@
 import UIKit
 
 class ShowUserDetailViewController: UIViewController {
+    @IBOutlet weak var userIconImageView: UIImageView!
+    @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var dataTypeTextView: UITextView!
+    @IBOutlet weak var dataContentTextView: UITextView!
     
     var receivedIndexPathInTableView: Int? = nil
+    var receivedUUID: String? = nil
+    var receivedPassword: String? = nil
 
-    @IBOutlet weak var testLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        userIconImageView.layer.cornerRadius = userIconImageView.frame.size.height / 2
+        userIconImageView.layer.masksToBounds = true
+        userIconImageView.layer.borderWidth = 2
+        
         testLabel.text = "\(receivedIndexPathInTableView!)"
 
-        // Do any additional setup after loading the view.
+        
+        dataTypeTextView.text = """
+        UUID:
+        
+        Create Date:
+        
+        Account:
+        Password:
+        Name:
+        Birthday:
+        Email:
+        Phone Number:
+        National ID:
+        """
+        
+        let accountDatabase = AccountDatabase()
+        let data = accountDatabase.loadSingleUserFullData(UUID: receivedUUID!, password: receivedPassword!)
+        dataContentTextView.text = """
+        \(data.uuid)
+        \(data.createDate)
+        \(data.account)
+        \(data.password)
+        \(data.name)
+        \(data.birthday)
+        \(data.email)
+        \(data.phoneNumber)
+        \(data.nationalID)
+        """
+        
+        userIconImageView.image = UIImage(data:data.pictureData as Data, scale:1.0)
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -85,6 +85,41 @@ struct AccountDatabase {
     mutating func clearLocalUserData() {
         usersInAccountTable = nil
     }
+    
+    func loadSingleUserFullData(UUID: String, password:String) ->
+        (uuid: String,
+        createDate: Date,
+        account: String,
+        password: String,
+        name: String,
+        birthday: String,
+        email: String,
+        phoneNumber: String,
+        nationalID: String,
+        pictureData: NSData) {
+        let user = realm.objects(RLM_UserAccount.self).filter("uuid  CONTAINS '\(UUID)'").first
+        var data: (uuid: String,
+                   createDate: Date,
+                   account: String,
+                   password: String,
+                   name: String,
+                   birthday: String,
+                   email: String,
+                   phoneNumber: String,
+                   nationalID: String,
+                   pictureData: NSData)
+        data = (user!.uuid,
+                user!.createDate,
+                user!.account,
+                user!.password,
+                user!.name,
+                user!.birthday,
+                user!.email,
+                user!.phoneNumber,
+                user!.nationalID,
+                user!.pictureData)
+        return data
+    }
 
 
     /// 取得資料數量

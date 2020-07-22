@@ -105,6 +105,8 @@ extension UserAccountTableViewController: UITableViewDelegate, UITableViewDataSo
             let showUserDetailVC = segue.destination as! ShowUserDetailViewController
 
             showUserDetailVC.receivedIndexPathInTableView = selectedIndexPath
+            showUserDetailVC.receivedUUID = accountDatabase.getUUID(indexPath: selectedIndexPath!)
+            showUserDetailVC.receivedPassword = "test"
 
         }
     }
