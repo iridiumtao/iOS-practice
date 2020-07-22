@@ -11,6 +11,7 @@ import Foundation
 import RealmSwift
 
 struct AccountDatabase {
+    /// 僅用於顯示在TableView
     private struct UsersInAccountTable {
         var UUID: String
         var account: String
@@ -86,39 +87,47 @@ struct AccountDatabase {
         usersInAccountTable = nil
     }
     
-    func loadSingleUserFullData(UUID: String, password:String) ->
-        (uuid: String,
-        createDate: Date,
-        account: String,
-        password: String,
-        name: String,
-        birthday: String,
-        email: String,
-        phoneNumber: String,
-        nationalID: String,
-        pictureData: NSData) {
+    /// 取得單使用者的全部資料
+    ///
+    /// 由於tuple無法轉成Array透過indexPath.row逐一取得資料、Dictionary沒有順序，故使用Array包成Tuple來傳值
+    /// 再與圖像的NSData檔包為一 Tuple 回傳。
+    /// - parameters:
+    ///   - UUID: 所求資料的UUID
+    ///   - password: 檢查用的密碼(可能會透過雜湊值來傳輸)
+    /// - returns:
+    ///   (使用者的所有資料, 圖片的NSData)
+    func loadSingleUserFullData(UUID: String, password:String) -> (userInfo: (keys: Array<String>, values: Array<String>), pictureData: NSData) {
         let user = realm.objects(RLM_UserAccount.self).filter("uuid  CONTAINS '\(UUID)'").first
-        var data: (uuid: String,
-                   createDate: Date,
-                   account: String,
-                   password: String,
-                   name: String,
-                   birthday: String,
-                   email: String,
-                   phoneNumber: String,
-                   nationalID: String,
-                   pictureData: NSData)
-        data = (user!.uuid,
-                user!.createDate,
-                user!.account,
-                user!.password,
-                user!.name,
-                user!.birthday,
-                user!.email,
-                user!.phoneNumber,
-                user!.nationalID,
-                user!.pictureData)
-        return data
+        
+        // 時間轉換為String
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/dd E HH:mm:ss"
+        dateFormatter.locale = Locale.init(identifier: "zh_TW")
+        let dateString = dateFormatter.string(from: user!.createDate)
+        
+        // 由於tuple無法轉成Array透過indexPath.row逐一取得資料、Dictionary沒有順序，故使用Array包成Tuple來傳值
+        let userInfoKey: Array<String> = ["UUID",
+                                          "Create Date",
+                                          "Account",
+                                          "Password",
+                                          "Name",
+                                          "Birthday",
+                                          "Email",
+                                          "Phone Number",
+                                          "National ID"]
+        let userInfoValue: Array<String> = [user!.uuid,
+                                            dateString,
+                                            user!.account,
+                                            user!.password,
+                                            user!.name,
+                                            user!.birthday,
+                                            user!.email,
+                                            user!.phoneNumber,
+                                            user!.nationalID]
+
+        let data = (userInfoKey, userInfoValue)
+
+        return (data, user!.pictureData)
     }
 
 
