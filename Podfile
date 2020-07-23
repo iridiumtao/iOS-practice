@@ -12,4 +12,6 @@ target 'iOS_practice_integrated' do
   pod 'MaterialComponents/TextControls+OutlinedTextAreas'
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
 
+  pod 'IQKeyboardManagerSwift'
+
 end

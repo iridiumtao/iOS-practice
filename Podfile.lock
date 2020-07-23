@@ -1,4 +1,5 @@
 PODS:
+  - IQKeyboardManagerSwift (6.5.5)
   - MaterialComponents/AnimationTiming (110.3.0)
   - MaterialComponents/Availability (110.3.0)
   - MaterialComponents/private/Math (110.3.0)
@@ -63,6 +64,7 @@ PODS:
     - Realm (= 5.2.0)
 
 DEPENDENCIES:
+  - IQKeyboardManagerSwift
   - "MaterialComponents/TextControls+FilledTextAreas"
   - "MaterialComponents/TextControls+FilledTextFields"
   - "MaterialComponents/TextControls+OutlinedTextAreas"
@@ -71,17 +73,19 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - IQKeyboardManagerSwift
     - MaterialComponents
     - MDFInternationalization
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   MaterialComponents: 424da6db40748236c6f071a9e9fbe00aa62033ff
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   Realm: f749c723e272f08fdf1939af5e61d2bd09b203e8
   RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
 
-PODFILE CHECKSUM: e184c2d7b52c25f25f542ca7f0134b026b4aa12c
+PODFILE CHECKSUM: 279a053a74769d77911fc7051539f80b55ddb5b4
 
 COCOAPODS: 1.9.3
